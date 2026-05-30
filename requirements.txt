@@ -1,0 +1,20 @@
+# Core
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+httpx==0.26.0
+websockets==12.0
+
+# Serialization
+pydantic==2.5.3
+
+# Visualization
+rich==13.7.0
+plotext==5.2.8
+
+# Cryptography (for ledger verification)
+cryptography==42.0.2
+
+# Testing
+pytest==8.0.0
+pytest-asyncio==0.23.3
+hypothesis==6.92.9
