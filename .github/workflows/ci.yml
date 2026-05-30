@@ -1,0 +1,44 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    
+    - name: Clone and build FIX Engine
+      run: |
+        git clone https://github.com/CharlesMfouapon/fix-engine.git /tmp/fix-engine
+        cd /tmp/fix-engine
+        mkdir build && cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+        make -j$(nproc)
+    
+    - name: Clone and build Order Book
+      run: |
+        git clone https://github.com/CharlesMfouapon/limit-order-book.git /tmp/limit-order-book
+        cd /tmp/limit-order-book
+        # Assume Maven wrapper or install
+        mvn package -DskipTests -q
+    
+    - name: Clone and build Immutable Ledger
+      run: |
+        git clone https://github.com/CharlesMfouapon/immutable-ledger.git /tmp/immutable-ledger
+        cd /tmp/immutable-ledger
+        cargo build --release
+    
+    - name: Run integration tests
+      run: pytest tests/ -v --tb=short
