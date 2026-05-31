@@ -1,5 +1,7 @@
 # Trading Platform Demo
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/CharlesMfouapon/trading-platform-demo?quickstart=1)
+
 End-to-end demonstration: FIX order → Order Book matching → Immutable Ledger settlement with cryptographic proofs. Polyglot microservices orchestration.
 
 Integration demonstration connecting three high-performance financial engines:
